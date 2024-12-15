@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Practice JS </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+    <main class="table" id="customers_table">
+
+        <section class="table__header">
+            <h1>Cars</h1>
+        </section>
+
+        <section class="table__body">
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Id</th>  
+                        <th>Make</th>  
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Color</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="objectTable"></tbody>
+
+                <tbody>
+                    <tr>
+                        <td id="newId"> 1 </td>
+                        <td><input type="text" id="objectMake" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><input type="text" id="objectModel" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><input type="text" id="objectYear" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><input type="text" id="objectColor" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><input type="text" id="objectPrice" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"></td>
+                        <td><button type="button" onclick="addObject()" class="btn btn-success">Add</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </section>
+    </main>
+    <script>
+        const objectTable = document.getElementById('objectTable');
+
+        let cars = [
+        { id: 1, make: 'Toyota', model: 'Camry', year: 2000, color: 'Silver', price: 25000 },
+        { id: 2, make: 'Honda', model: 'Civic', year: 2020, color: 'Blue', price: 22000 },
+        { id: 3, make: 'Ford', model: 'Mustang', year: 1990, color: 'Red', price: 40000 },
+        { id: 4, make: 'Tesla', model: 'Model 3', year: 2023, color: 'Black', price: 45000 },
+        { id: 5, make: 'BMW', model: '3 Series', year: 2022, color: 'White', price: 38000 },
+        ]
+
+        displayObjects();
+        
+        function addObject() {
+            const objectMake = document.getElementById("objectMake").value;
+            const objectModel = document.getElementById("objectModel").value;
+            const objectYear = document.getElementById("objectYear").value;
+            const objectColor = document.getElementById("objectColor").value;
+            const objectPrice = document.getElementById("objectPrice").value;
+            if (objectMake && objectModel && objectYear && objectColor  && objectPrice) {
+                let id = cars.length+1
+                let newObject = { id: id, make: objectMake , model: objectModel, year: objectYear , color: objectColor, price: objectPrice };
+                cars.push(newObject);
+                displayObjects();
+                clearInputs();
+            }
+        }
+
+        function deleteObject(index) {
+            cars.splice(index, 1);
+            displayObjects();
+          }
+      
+          function editObject(index) {
+            const newMark = prompt('Enter new name:', cars[index].make);
+            const newModel = prompt('Enter new age:', cars[index].model);
+            const newYear = prompt('Enter new city:', cars[index].year);
+            const newColor = prompt('Enter new age:', cars[index].color);
+            const newPrice = prompt('Enter new city:', cars[index].price);
+      
+            if (newMark && newModel && newYear) {
+                cars[index].make = newMark;
+                cars[index].model = newModel;
+                cars[index].year = newYear;
+                cars[index].color = newColor;
+                cars[index].price = newPrice;
+                displayObjects();
+            }
+          }
+
+        function displayObjects() {
+            objectTable.innerHTML = '';
+            cars.forEach((car, index) => {
+                          
+            const row = document.createElement('tr');
+
+            const idCell = document.createElement('td');
+            idCell.textContent = car.id;
+
+            const makeCell = document.createElement('td');
+            makeCell.textContent = car.make;
+
+            const modelCell = document.createElement('td');
+            modelCell.textContent = car.model;
+
+            const yearCell = document.createElement('td');
+            yearCell.textContent = car.year;
+
+            const colorCell = document.createElement('td');
+            colorCell.textContent = car.color;
+
+            const priceCell = document.createElement('td');
+            priceCell.textContent = "$"+car.price;
+
+            const actionCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => deleteObject(index);
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = () => editObject(index);
+
+
+
+            row.appendChild(idCell);
+            row.appendChild(makeCell);
+            row.appendChild(modelCell);
+            row.appendChild(yearCell);
+            row.appendChild(colorCell);
+            row.appendChild(priceCell);
+
+            actionCell.appendChild(deleteButton);
+            actionCell.appendChild(editButton);
+
+            row.appendChild(actionCell);
+
+            objectTable.appendChild(row);
+            });
+
+            document.getElementById('newId').innerText = cars.length+1
+        }
+
+        function clearInputs() {
+            objectMake.value = '';
+            objectModel.value = '';
+            objectYear.value = '';
+            objectColor.value = '';
+            objectPrice.value = '';
+          }
+
+    </script>
+    <a href="index2.html" class="button">Let's Go to Next Way</a>
+</body>
+
+</html>
