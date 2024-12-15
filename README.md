@@ -271,6 +271,9 @@ price: 38000
  
 	let result=cars.map(changeProp)
 	console.log(result)
- 
 
-<iframe src="https://practicjs.tiiny.site" width="500" height="500" allowfullscreen></iframe>
+ ### Practice Js For Exam (Importent)
+ #### you can see project example in site
+Website : https://practicjs.tiiny.site/
+In Editor : https://codesandbox.io/p/devbox/practic-js-xskkw8
+In GitHub : https://github.com/mahdimirbagheri/practiceJavaScript/tree/main/practice
